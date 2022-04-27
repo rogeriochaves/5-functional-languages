@@ -1,0 +1,22 @@
+{
+  "name": "functional-js",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-plugin-custom-rules": "file:rules",
+    "eslint-plugin-extra-rules": "^0.0.0-development",
+    "eslint-plugin-fp": "^2.3.0",
+    "eslint-plugin-immutable": "^1.0.0",
+    "eslint-plugin-no-foreach": "^1.0.0",
+    "eslint-plugin-no-implicit-side-effects": "^1.0.0",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "vite": "^2.9.5"
+  }
+}
