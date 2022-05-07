@@ -18,7 +18,7 @@ module.exports = {
   ],
   "rules": {
     "no-var": "error",
-    // "fp/no-let": ["error"],
+    "fp/no-let": ["error"],
     "fp/no-this": ["error"],
     "fp/no-mutation": ["error", {commonjs: true}],
     "no-implicit-side-effects/no-implicit-side-effects": ["error"],

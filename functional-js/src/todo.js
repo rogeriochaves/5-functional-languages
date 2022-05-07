@@ -1,5 +1,5 @@
 export default () => {
-  let todoList = document.querySelector("#app");
+  const todoList = document.querySelector("#app");
 
   function render(state) {
     const currentDiv = todoList.querySelector("div");
@@ -47,7 +47,7 @@ export default () => {
   }
 
   function addTodo(state, text) {
-    let todo = {
+    const todo = {
       done: false,
       text,
     };
@@ -57,7 +57,7 @@ export default () => {
     });
   }
 
-  let initialState = {
+  const initialState = {
     todos: [],
   };
 
