@@ -42,6 +42,7 @@ describe("Todo App", () => {
     input.value = "Foo";
     input.dispatchEvent(new KeyboardEvent("keyup", { keyCode: 13 }));
 
+    input = document.querySelector("#todo-input");
     input.value = "Bar";
     input.dispatchEvent(new KeyboardEvent("keyup", { keyCode: 13 }));
 

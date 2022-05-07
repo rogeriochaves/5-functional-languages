@@ -21,7 +21,7 @@ module.exports = {
     // "fp/no-let": ["error"],
     "fp/no-this": ["error"],
     "fp/no-mutation": ["error", {commonjs: true}],
-    // "no-implicit-side-effects/no-implicit-side-effects": ["error"],
+    "no-implicit-side-effects/no-implicit-side-effects": ["error"],
     // "fp/no-loops": ["error"],
     // "no-foreach/no-foreach": ["error"],
     // "custom-rules/no-if-without-else": ["error"],
