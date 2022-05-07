@@ -25,7 +25,7 @@ module.exports = {
     // "fp/no-loops": ["error"],
     // "no-foreach/no-foreach": ["error"],
     // "custom-rules/no-if-without-else": ["error"],
-    // "fp/no-class": ["error"],
+    "fp/no-class": ["error"],
     "indent": [
       "error",
       2
