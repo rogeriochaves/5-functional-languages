@@ -14,7 +14,7 @@ class TodoList {
   }
 
   reorderTodos() {
-    this.todos = this.todos.sort((todo) => todo.done);
+    this.todos = this.todos.sort((a, b) => a.done - b.done);
     for (const todo of this.todos) {
       this.el.removeChild(todo.el);
       this.el.appendChild(todo.el);
@@ -25,11 +25,11 @@ class TodoList {
 class TodoInput {
   constructor(todoList) {
     this.el = document.querySelector("#todo-input");
-    this.el.addEventListener("keyup", this.onChange.bind(this));
+    this.el.addEventListener("keyup", this.onKeyUp.bind(this));
     this.todoList = todoList;
   }
 
-  onChange(e) {
+  onKeyUp(e) {
     const ENTER_KEY = 13;
     if (e.keyCode == ENTER_KEY) {
       this.todoList.addTodo(this.el.value);
