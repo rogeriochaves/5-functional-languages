@@ -17,9 +17,9 @@ module.exports = {
     "custom-rules",
   ],
   "rules": {
-    // "no-var": "error",
+    "no-var": "error",
     // "fp/no-let": ["error"],
-    // "fp/no-this": ["error"],
+    "fp/no-this": ["error"],
     // "fp/no-mutation": ["error"],
     // "no-implicit-side-effects/no-implicit-side-effects": ["error"],
     // "fp/no-loops": ["error"],

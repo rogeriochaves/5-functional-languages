@@ -53,6 +53,6 @@ describe("Todo App", () => {
     );
     doneButton.click();
 
-    expect(app.innerText).toMatch(/Foo.*Bar/);
+    expect(app.innerText).toMatch(/Foo.*Bar$/);
   });
 });
