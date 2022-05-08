@@ -17,7 +17,6 @@ Object.defineProperty(HTMLElement.prototype, "innerText", {
 
 describe("Todo App", () => {
   let app;
-  let input;
 
   beforeEach(() => {
     document.body.innerHTML = `
@@ -28,10 +27,10 @@ describe("Todo App", () => {
     main();
 
     app = document.querySelector("#app");
-    input = document.querySelector("#todo-input");
   });
 
   it("adds a new todo, cleaning the input field", () => {
+    let input = document.querySelector("#todo-input");
     input.value = "Foo";
     input.dispatchEvent(new KeyboardEvent("keyup", { keyCode: 13 }));
 
@@ -39,20 +38,22 @@ describe("Todo App", () => {
     expect(app.innerText).toContain("Foo");
   });
 
-  it("checks a todo as done, moving it to the bottom", () => {
+  it("checks a todo as done removing it from the dom", () => {
+    let input = document.querySelector("#todo-input");
     input.value = "Foo";
     input.dispatchEvent(new KeyboardEvent("keyup", { keyCode: 13 }));
 
+    input = document.querySelector("#todo-input");
     input.value = "Bar";
     input.dispatchEvent(new KeyboardEvent("keyup", { keyCode: 13 }));
 
-    expect(app.innerText).toMatch(/Bar.*Foo/);
+    expect(app.innerText).toMatch(/Foo.*Bar/);
 
     const doneButton = Array.from(app.querySelectorAll("a")).find(
       (el) => el.innerText == "Done"
     );
     doneButton.click();
 
-    expect(app.innerText).toMatch(/Foo.*Bar/);
+    expect(app.innerText.trim()).toMatch(/^Bar/);
   });
 });

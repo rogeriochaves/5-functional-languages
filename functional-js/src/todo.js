@@ -8,17 +8,12 @@ class TodoList {
   addTodo(text) {
     const todo = new Todo(this);
     todo.setText(text);
-    this.todos.unshift(todo);
+    this.todos.push(todo);
     this.el.appendChild(todo.el);
-    this.reorderTodos();
   }
 
-  reorderTodos() {
-    this.todos = this.todos.sort((a, b) => a.done - b.done);
-    for (const todo of this.todos) {
-      this.el.removeChild(todo.el);
-      this.el.appendChild(todo.el);
-    }
+  removeTodo(todo) {
+    this.el.removeChild(todo.el);
   }
 }
 
@@ -61,10 +56,7 @@ class Todo {
   }
 
   setDone() {
-    this.el.removeChild(this.doneButton);
-    this.todoText.style.textDecoration = "line-through";
-    this.done = true;
-    this.todoList.reorderTodos();
+    this.todoList.removeTodo(this);
   }
 }
 
