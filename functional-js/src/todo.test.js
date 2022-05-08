@@ -21,7 +21,9 @@ describe("Todo App", () => {
 
   beforeEach(() => {
     document.body.innerHTML = `
-      <div id="app"></div>
+      <div id="app">
+        <input id="todo-input" type="text" />
+      </div>
     `;
     main();
 
@@ -33,7 +35,6 @@ describe("Todo App", () => {
     input.value = "Foo";
     input.dispatchEvent(new KeyboardEvent("keyup", { keyCode: 13 }));
 
-    input = document.querySelector("#todo-input");
     expect(input.value).toBe("");
     expect(app.innerText).toContain("Foo");
   });
@@ -52,6 +53,6 @@ describe("Todo App", () => {
     );
     doneButton.click();
 
-    expect(app.innerText.trim()).toMatch(/Foo.*Bar$/);
+    expect(app.innerText).toMatch(/Foo.*Bar$/);
   });
 });

@@ -1,70 +1,53 @@
 export default () => {
   let todoList = document.querySelector("#app");
+  let todoInput = document.querySelector("#todo-input");
 
-  function render(state) {
-    const currentDiv = todoList.querySelector("div");
-    if (currentDiv) {
-      todoList.removeChild(todoList.querySelector("div"));
-    }
-
-    const orderedTodos = state.todos.sort((a, b) => a.done - b.done);
-    const listItems = orderedTodos.map((todo) => {
-      return `<span style="${todo.done ? "text-decoration: line-through" : ""}">${todo.text}</span>${
-        todo.done ? "" : `<a href="#" style="padding-left: 5px">Done</a>`
-      }`;
-    });
-
-    const el = createElementFromHtml(`
-      <input id="todo-input" type="text" value="" />
-      ${listItems.join("")}
-    `);
-
-    el.querySelectorAll("a").forEach((el, index) => {
-      el.addEventListener("click", () => {
-        const newState = {
-          todos: state.todos.map((todo, i) => {
-            if (i == index) {
-              return { ...todo, done: true };
-            } else {
-              return todo;
-            }
-          }),
-        };
-        render(newState);
-      });
-    });
-
-    el.querySelector("input").addEventListener("keyup", (e) => {
-      const ENTER_KEY = 13;
-      if (e.keyCode == ENTER_KEY) {
-        addTodo(state, e.target.value);
-      }
-    });
-
-    todoList.appendChild(el);
-  }
-
-  function addTodo(state, text) {
-    let todo = {
-      done: false,
-      text,
-    };
-
-    state.todos.unshift(todo);
-    render(state);
-  }
-
-  let initialState = {
+  let state = {
     todos: [],
   };
 
-  render(initialState);
+  function addTodo(text) {
+    let todo = {};
+    todo.done = false;
+
+    todo.todoText = document.createElement("span");
+
+    todo.doneButton = document.createElement("a");
+    todo.doneButton.href = "#";
+    todo.doneButton.innerText = "Done";
+    todo.doneButton.style.paddingLeft = "5px";
+
+    todo.el = document.createElement("div");
+    todo.el.appendChild(todo.todoText);
+    todo.el.appendChild(todo.doneButton);
+    todoList.appendChild(todo.el);
+
+    todo.doneButton.addEventListener("click", () => {
+      todo.el.removeChild(todo.doneButton);
+      todo.todoText.style.textDecoration = "line-through";
+      todo.done = true;
+      reorderTodos();
+    });
+
+    todo.todoText.innerText = text;
+
+    state.todos.unshift(todo);
+    reorderTodos();
+  }
+
+  function reorderTodos() {
+    state.todos = state.todos.sort((a, b) => a.done - b.done);
+    for (const todo of state.todos) {
+      todoList.removeChild(todo.el);
+      todoList.appendChild(todo.el);
+    }
+  }
+
+  todoInput.addEventListener("keyup", (e) => {
+    const ENTER_KEY = 13;
+    if (e.keyCode == ENTER_KEY) {
+      addTodo(todoInput.value);
+      todoInput.value = "";
+    }
+  });
 };
-
-function createElementFromHtml(html) {
-  const el = document.createElement("div");
-  // eslint-disable-next-line fp/no-mutation
-  el.innerHTML = html;
-
-  return el;
-}
