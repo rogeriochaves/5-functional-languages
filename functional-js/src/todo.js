@@ -4,14 +4,12 @@ export default () => {
   function render(state) {
     const currentDiv = todoList.querySelector("div");
     if (currentDiv) {
-      void todoList.removeChild(todoList.querySelector("div"));
+      todoList.removeChild(todoList.querySelector("div"));
     }
 
     const orderedTodos = state.todos.sort((a, b) => a.done - b.done);
     const listItems = orderedTodos.map((todo) => {
-      return `<span style="${
-        todo.done ? "text-decoration: line-through" : ""
-      }">${todo.text}</span>${
+      return `<span style="${todo.done ? "text-decoration: line-through" : ""}">${todo.text}</span>${
         todo.done ? "" : `<a href="#" style="padding-left: 5px">Done</a>`
       }`;
     });
@@ -21,8 +19,8 @@ export default () => {
       ${listItems.join("")}
     `);
 
-    void el.querySelectorAll("a").forEach((el, index) => {
-      void el.addEventListener("click", () => {
+    el.querySelectorAll("a").forEach((el, index) => {
+      el.addEventListener("click", () => {
         const newState = {
           todos: state.todos.map((todo, i) => {
             if (i == index) {
@@ -32,18 +30,18 @@ export default () => {
             }
           }),
         };
-        void render(newState);
+        render(newState);
       });
     });
 
-    void el.querySelector("input").addEventListener("keyup", (e) => {
+    el.querySelector("input").addEventListener("keyup", (e) => {
       const ENTER_KEY = 13;
       if (e.keyCode == ENTER_KEY) {
-        void addTodo(state, e.target.value);
+        addTodo(state, e.target.value);
       }
     });
 
-    void todoList.appendChild(el);
+    todoList.appendChild(el);
   }
 
   function addTodo(state, text) {
@@ -52,21 +50,20 @@ export default () => {
       text,
     };
 
-    void render({
-      todos: [todo, ...state.todos],
-    });
+    state.todos.unshift(todo);
+    render(state);
   }
 
   let initialState = {
     todos: [],
   };
 
-  void render(initialState);
+  render(initialState);
 };
 
 function createElementFromHtml(html) {
   const el = document.createElement("div");
-  // eslint-disable-next-line fp/no-mutation, no-implicit-side-effects/no-implicit-side-effects
+  // eslint-disable-next-line fp/no-mutation
   el.innerHTML = html;
 
   return el;
